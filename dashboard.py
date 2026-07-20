@@ -1,36 +1,3 @@
-"""
-dashboard.py
-------------
-Streamlit dashboard for the BODS Operator Compliance project.
-
-The underlying task is BINARY CLASSIFICATION: predict whether a bus
-operator will be flagged "Requires Attention" in BODS's own compliance
-report - i.e. whether their published timetable/fares/AVL feeds are
-reliable enough that a Transport Authority / regulator doesn't need to
-chase them up. Four classifiers (Logistic Regression, Decision Tree,
-Random Forest, GBT) were trained and compared on that task in the
-PySpark notebook; A separate, unsupervised K-Means step segments operators by scale and
-publishing behaviour (not by compliance risk) into three named
-clusters - a complementary lens on the same data. This dashboard has
-three views:
-
-  1. "Model Comparison"       - the classification results themselves:
-     how the 4 models scored against each other (Accuracy/Precision/
-     Recall/F1/ROC-AUC), and the leakage check (with vs without the
-     sub-status flag columns).
-  2. "Operator Explorer"      - what the WINNING model (Random Forest)
-     actually predicts, operator by operator, region by region.
-  3. "Operator Segmentation"  - the K-Means clusters, and whether
-     compliance risk concentrates in any particular segment.
-
-Reads pre-computed tables from the SQLite export - no Spark/model
-reloading happens here, keeping the dashboard lightweight and fast to
-start.
-
-Run with:
-    streamlit run dashboard.py
-"""
-
 import sqlite3
 import pandas as pd
 import streamlit as st
